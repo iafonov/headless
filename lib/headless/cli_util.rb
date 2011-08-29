@@ -37,6 +37,8 @@ class Headless
         begin
           Process.kill 'TERM', pid
           Process.wait pid if options[:wait]
+        rescue Errno::ECHILD
+          # no such process; assume it's already killed
         rescue Errno::ESRCH
           # no such process; assume it's already killed
         end
